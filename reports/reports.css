@@ -1,0 +1,12 @@
+/* ===========================================================
+   Maintenance Reports — styles
+   =========================================================== */
+
+  /* ===== Reports ===== */
+  .report-summary{display:flex;gap:24px;flex-wrap:wrap;padding:4px 4px 2px;}
+  .report-stat{display:flex;flex-direction:column;gap:2px;min-width:70px;}
+  .report-stat .rs-val{font-size:22px;font-weight:700;color:var(--ink);}
+  .report-stat .rs-lbl{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+  .cat-inline-add{display:flex;gap:8px;}
+  .cat-inline-add input{flex:1;}
+

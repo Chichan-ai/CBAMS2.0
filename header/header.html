@@ -1,0 +1,77 @@
+<!-- ===========================================================
+     Header & Navigation — markup fragment (loaded into index.html)
+     =========================================================== -->
+
+<header class="topbar">
+  <div class="brand brand-home" id="brand-home">
+    <img src="assets/ABC-RB  - APPROVED  LOGO - FULL COLOR-04.png" alt="Agribank Logo" class="brand-logo">
+  </div>
+  <div class="brand-stack">
+    <div class="brand-title">DISRUPTION MONITORING SYSTEM</div>
+    <nav class="navrow">
+    <div class="navitem current navitem-positioned role-dashboard-nav" id="nav-dashboard">Dashboard</div>
+    <div class="navitem navitem-positioned role-records-nav" id="nav-records">Records <span class="chev">▾</span>
+      <div class="dropdown" id="dd-records">
+        <a href="#" id="link-request">Request</a>
+        <a href="#" id="link-approval" class="admin-only">Approval <span class="pill pending is-hidden" id="pendingCountBadge"></span></a>
+        <a href="#" id="link-approval-locked" class="locked">Approval <span class="lock">🔒 Admin</span></a>
+        <a href="#" id="link-archive">Archive</a>
+      </div>
+    </div>
+    <div class="navitem navitem-positioned role-directory-nav" id="nav-directory">Branch Directory</div>
+    <div class="navitem navitem-positioned role-maintenance-nav" id="nav-forms">Maintenance <span class="chev">▾</span>
+      <div class="dropdown" id="dd-forms">
+        <a href="#" id="link-sms" class="maintenance-admin-only">SMS Notification</a>
+        <a href="#" id="link-reports" class="maintenance-reports">Reports</a>
+        <a href="#" id="link-holidays" class="maintenance-admin-only">Holidays List</a>
+        <a href="#" id="link-user-access" class="maintenance-admin-only">User Access Settings</a>
+      </div>
+    </div>
+  </nav>
+  </div>
+  <div class="spacer"></div>
+  <div class="account" id="account-cell">
+    <div class="avatar" id="userAvatar">FJ</div>
+    <div class="account-dropdown" id="dd-account">
+      <div class="who"><div class="n" id="userNameFull">fjprincipe</div><div class="r" id="userRoleFull">Admin · NCR</div></div>
+      <a href="#" id="link-view-profile">View Profile</a>
+      <a href="#">Settings</a>
+      <a href="#" class="danger" id="logoutLink">Logout</a>
+    </div>
+  </div>
+</header>
+<div class="sms-scrim" id="profileScrim"></div>
+<div class="sms-modal" id="profileModal">
+  <div class="sms-modal-head">
+    <h3>My Profile</h3>
+    <button class="sms-close" id="profileModalClose">✕</button>
+  </div>
+  <div class="sms-modal-body">
+    <div class="ab-modal-body profile-modal-body">
+      <div class="f-group">
+        <label>Full Name</label>
+        <div id="profFullName" class="profile-value profile-name">—</div>
+      </div>
+      <div class="f-group">
+        <label>Username</label>
+        <div id="profUsername" class="profile-value">—</div>
+      </div>
+      <div class="f-group">
+        <label>Email</label>
+        <div id="profEmail" class="profile-value">—</div>
+      </div>
+      <div class="f-group">
+        <label>Role</label>
+        <div id="profRole" class="profile-value">—</div>
+      </div>
+      <div class="f-group">
+        <label>Permissions</label>
+        <div id="profPerms" class="profile-permissions"></div>
+      </div>
+    </div>
+  </div>
+  <div class="sms-modal-foot">
+    <button class="btn btn-ghost" id="profileCloseBtn">Close</button>
+  </div>
+</div>
+
