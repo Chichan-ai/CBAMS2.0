@@ -86,3 +86,96 @@ function renderPendingList(){
   empty.style.display = 'none';
   tbody.innerHTML = pending.map(r=>requestTableRowHTML(r,'approval')).join('');
 }
+if(false){
+/* Approvals — script
+   =========================================================== */
+
+/* =========================================================
+   APPROVE / REJECT — this is what auto-updates the map + feed
+   ========================================================= */
+async function approveRequest(id){
+  const req = requests.find(r=>r.id===id);
+  if(!req || req.status!=='pending') return;
+  const b = branches.find(x=>x.code===req.branchCode);
+  if(!b){ showToast('Branch not found.', 'error'); return; }
+  if(!can('can_approve')){ showToast('You do not have approval access.', 'error'); return; }
+
+  const reviewer = currentUser.full_name;
+  let historyTitle, historyDesc, branchUpdate;
+  if(req.requestedStatus==='closed'){
+    const catLabel = req.category || 'Other';
+    const subLabel = req.subcategory || '';
+    const untilDate = req.closedUntil ? fmtDateTime(req.closedUntil, req.closedUntilTime) : '';
+    const hours = subLabel==='Scheduled System Maintenance' ? 'Suspended for scheduled maintenance'
+      : subLabel==='Power Outage' ? 'Suspended — power outage'
+      : subLabel==='Connectivity / System Outage' ? 'Suspended — network outage'
+      : subLabel==='Flood' ? 'Suspended — flooding'
+      : untilDate ? `Suspended until ${untilDate}`
+      : 'Suspended until further notice';
+    branchUpdate = {
+      status:'closed', closed_from: req.closedFrom, closed_until: req.closedUntil,
+      hours, emergency: subLabel !== 'Scheduled System Maintenance'
+    };
+    historyTitle = `Closed — ${catLabel}`;
+    historyDesc = subLabel ? `[${subLabel}] ${req.reason}` : req.reason;
+  } else {
+    branchUpdate = { status:'open', closed_from:null, closed_until:null, hours:'9:00 AM – 3:00 PM', emergency:false };
+    historyTitle = 'Opened';
+    historyDesc = req.reason || 'Regular operating hours resumed';
+  }
+
+  const { error: bErr } = await sb.from('branches').update(branchUpdate).eq('code', b.code);
+  if(bErr){ showToast('Failed to update branch: ' + bErr.message, 'error'); return; }
+  await sb.from('branch_history').insert({
+    branch_code: b.code, title: historyTitle, description: historyDesc,
+    actor: `${reviewer} (Approved ${req.id})`
+  });
+  const { error: rErr } = await sb.from('closure_requests').update({
+    status:'approved', reviewed_by: currentUser.id, reviewed_at: new Date().toISOString()
+  }).eq('id', id);
+  if(rErr){ showToast('Failed to update request: ' + rErr.message, 'error'); return; }
+
+  await Promise.all([loadBranches(), loadRequests()]);
+  refreshAll();
+  renderPendingList();
+  renderArchiveList();
+  updatePendingBadge();
+  showToast(`${req.branchName} updated on the map and alert feed.`, 'success');
+}
+
+async function rejectRequest(id){
+  const req = requests.find(r=>r.id===id);
+  if(!req || req.status!=='pending') return;
+  if(!can('can_approve')){ showToast('You do not have approval access.', 'error'); return; }
+  const { error } = await sb.from('closure_requests').update({
+    status:'rejected', reviewed_by: currentUser.id, reviewed_at: new Date().toISOString()
+  }).eq('id', id);
+  if(error){ showToast('Failed to reject request: ' + error.message, 'error'); return; }
+  await loadRequests();
+  renderPendingList();
+  renderArchiveList();
+  updatePendingBadge();
+  showToast(`Request ${req.id} rejected.`, 'info');
+}
+
+
+// Moved from the original REQUEST FORM section — pending-requests table
+// on the Approvals view. Uses requestTableRowHTML() from request-form.js.
+function renderPendingList(){
+  const pending = requests.filter(r=>r.status==='pending');
+  const tbody = document.getElementById('pendingTableBody');
+  const empty = document.getElementById('pendingTableEmpty');
+  if(!tbody || !empty) return;
+
+  if(pending.length===0){
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+
+  empty.style.display = 'none';
+  tbody.innerHTML = pending.map(r=>requestTableRowHTML(r,'approval')).join('');
+}
+// >>>>>>> a12dab7 (Update system changes)
+// ne';
+}
