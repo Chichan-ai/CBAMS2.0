@@ -27,7 +27,6 @@ renderArchiveList();
 renderMySubmissions();
 updatePendingBadge();
 populateReportCategoryFilter();
-renderReportTable();
 
 // If the browser already has a valid Supabase session (e.g. page refresh),
 // sign the user back in automatically instead of showing the login form.

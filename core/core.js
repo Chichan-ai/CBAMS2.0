@@ -144,7 +144,6 @@ async function refreshFromSupabase(){
   renderMySubmissions();
   updatePendingBadge();
   populateReportCategoryFilter();
-  renderReportTable();
 }
 
 
@@ -417,7 +416,7 @@ async function switchView(name){
     showRequestList();
   }
   if(name==='branch-directory') renderDirectoryList();
-  if(name==='reports'){ populateReportCategoryFilter(); renderReportTable(); }
+  if(name==='reports') populateReportCategoryFilter();
   window.scrollTo({top:0, behavior:'smooth'});
 }
 document.getElementById('nav-dashboard').addEventListener('click', ()=>switchView('dashboard'));

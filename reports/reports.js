@@ -31,6 +31,7 @@ function getReportRows(){
 
 function renderReportTable(){
   const rows = getReportRows();
+  document.getElementById('reportSummaryCard').hidden = false;
   const tbody = document.getElementById('reportTableBody');
   if(rows.length === 0){
     tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:24px;color:var(--muted);font-size:12px;">No requests match this filter.</td></tr>';
@@ -91,7 +92,8 @@ document.getElementById('reportResetBtn').addEventListener('click', ()=>{
   document.getElementById('reportTo').value = '';
   document.getElementById('reportCategory').value = 'all';
   document.getElementById('reportStatus').value = 'all';
-  renderReportTable();
+  document.getElementById('reportSummaryCard').hidden = true;
+  document.getElementById('reportTableBody').innerHTML = '';
 });
 document.getElementById('reportExportBtn').addEventListener('click', ()=>{
   const rows = getReportRows();
