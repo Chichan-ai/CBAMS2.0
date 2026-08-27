@@ -531,7 +531,7 @@ function openRequestDetails(id, mode){
       </div>
       <div class="request-detail-actions">
         <button type="button" class="btn btn-ghost" id="requestDetailCloseBtn">Close</button>
-        <button type="button" class="btn btn-danger btn-sm" onclick="rejectRequest('${r.id}');closeRequestDetails();">Reject</button>
+        <button type="button" class="btn btn-danger btn-sm" onclick="submitRejection('${r.id}')">Reject</button>
         <button type="button" class="btn btn-approve btn-sm" onclick="submitApproval('${r.id}')">Approve</button>
       </div>`;
   } else {

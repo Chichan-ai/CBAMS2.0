@@ -66,12 +66,24 @@ function submitApproval(id){
   approveRequest(id, input.value);
 }
 
-async function rejectRequest(id){
+function submitRejection(id){
+  const input = document.getElementById('approvalRemarks');
+  if(!input || !input.value.trim()){
+    input?.focus();
+    showToast('Remarks are required before rejecting the request.', 'error');
+    return;
+  }
+  closeRequestDetails();
+  rejectRequest(id, input.value);
+}
+
+async function rejectRequest(id, remarks){
   const req = requests.find(r=>r.id===id);
   if(!req || req.status!=='pending') return;
   if(!can('can_approve')){ showToast('You do not have approval access.', 'error'); return; }
+  if(!remarks || !remarks.trim()){ showToast('Remarks are required before rejecting the request.', 'error'); return; }
   const { error } = await sb.from('closure_requests').update({
-    status:'rejected', reviewed_by: currentUser.id, reviewed_at: new Date().toISOString()
+    status:'rejected', review_remarks:remarks.trim(), reviewed_by: currentUser.id, reviewed_at: new Date().toISOString()
   }).eq('id', id);
   if(error){ showToast('Failed to reject request: ' + error.message, 'error'); return; }
   await loadRequests();
