@@ -31,7 +31,7 @@ function getReportRows(){
 
 function renderReportTable(){
   const rows = getReportRows();
-  document.getElementById('reportSummaryCard').hidden = false;
+  document.getElementById('reportTableWrap').hidden = false;
   const tbody = document.getElementById('reportTableBody');
   if(rows.length === 0){
     tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:24px;color:var(--muted);font-size:12px;">No requests match this filter.</td></tr>';
@@ -86,13 +86,35 @@ function exportReportCSV(rows){
   URL.revokeObjectURL(url);
 }
 
-document.getElementById('reportGenerateBtn').addEventListener('click', renderReportTable);
+function updateReportDateRange(){
+  const from = document.getElementById('reportFrom').value;
+  const to = document.getElementById('reportTo').value;
+  document.getElementById('reportSummaryCard').hidden = true;
+  if(from && to){
+    renderReportTable();
+  } else {
+    document.getElementById('reportTableWrap').hidden = true;
+    document.getElementById('reportTableBody').innerHTML = '';
+  }
+}
+
+document.getElementById('reportFrom').addEventListener('change', updateReportDateRange);
+document.getElementById('reportTo').addEventListener('change', updateReportDateRange);
+document.getElementById('reportGenerateBtn').addEventListener('click', ()=>{
+  if(!document.getElementById('reportFrom').value || !document.getElementById('reportTo').value){
+    showToast('Please set both report dates first.', 'error');
+    return;
+  }
+  renderReportTable();
+  document.getElementById('reportSummaryCard').hidden = false;
+});
 document.getElementById('reportResetBtn').addEventListener('click', ()=>{
   document.getElementById('reportFrom').value = '';
   document.getElementById('reportTo').value = '';
   document.getElementById('reportCategory').value = 'all';
   document.getElementById('reportStatus').value = 'all';
   document.getElementById('reportSummaryCard').hidden = true;
+  document.getElementById('reportTableWrap').hidden = true;
   document.getElementById('reportTableBody').innerHTML = '';
 });
 document.getElementById('reportExportBtn').addEventListener('click', ()=>{

@@ -70,11 +70,23 @@
   .request-detail-item .value{font-size:12px;color:var(--ink);font-weight:600;line-height:1.5;}
   .request-detail-item .value.reason{font-weight:500;white-space:pre-wrap;}
   .request-detail-foot{
-    padding:12px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;
+    padding:14px 20px;border-top:1px solid var(--border);display:flex;align-items:flex-end;gap:14px;
   }
+  .approval-remarks{flex:1;min-width:220px;margin-right:auto;}
+  .approval-remarks label{display:block;font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
+  .approval-remarks label span{color:var(--closed);}
+  .approval-remarks textarea{display:block;width:100%;min-height:52px;resize:vertical;}
+  .request-detail-actions{display:flex;gap:8px;align-items:center;flex-shrink:0;}
+  .request-detail-actions .btn{min-width:78px;min-height:34px;}
+  .request-detail-actions .btn-approve{box-shadow:0 2px 5px rgba(20,155,72,.2);}
+  .request-detail-actions .btn-approve:hover{transform:translateY(-1px);box-shadow:0 4px 9px rgba(20,155,72,.25);}
+  .request-detail-actions .btn-danger:hover,.request-detail-actions .btn-ghost:hover{transform:translateY(-1px);}
   @media(max-width:700px){
     .request-detail-grid{grid-template-columns:1fr;}
     .request-detail-item.full{grid-column:auto;}
+    .request-detail-foot{align-items:stretch;flex-direction:column;}
+    .approval-remarks{width:100%;min-width:0;}
+    .request-detail-actions{justify-content:flex-end;}
   }
 
 

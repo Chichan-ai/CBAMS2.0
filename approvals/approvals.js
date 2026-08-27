@@ -5,12 +5,13 @@
 /* =========================================================
    APPROVE / REJECT — this is what auto-updates the map + feed
    ========================================================= */
-async function approveRequest(id){
+async function approveRequest(id, remarks){
   const req = requests.find(r=>r.id===id);
   if(!req || req.status!=='pending') return;
   const b = branches.find(x=>x.code===req.branchCode);
   if(!b){ showToast('Branch not found.', 'error'); return; }
   if(!can('can_approve')){ showToast('You do not have approval access.', 'error'); return; }
+  if(!remarks || !remarks.trim()){ showToast('Remarks are required before approving the request.', 'error'); return; }
 
   const reviewer = currentUser.full_name;
   let historyTitle, historyDesc, branchUpdate;
@@ -43,7 +44,7 @@ async function approveRequest(id){
     actor: `${reviewer} (Approved ${req.id})`
   });
   const { error: rErr } = await sb.from('closure_requests').update({
-    status:'approved', reviewed_by: currentUser.id, reviewed_at: new Date().toISOString()
+    status:'approved', review_remarks:remarks.trim(), reviewed_by: currentUser.id, reviewed_at: new Date().toISOString()
   }).eq('id', id);
   if(rErr){ showToast('Failed to update request: ' + rErr.message, 'error'); return; }
 
@@ -52,6 +53,17 @@ async function approveRequest(id){
   renderPendingList();
   updatePendingBadge();
   showToast(`${req.branchName} updated on the map and alert feed.`, 'success');
+}
+
+function submitApproval(id){
+  const input = document.getElementById('approvalRemarks');
+  if(!input || !input.value.trim()){
+    input?.focus();
+    showToast('Remarks are required before approving the request.', 'error');
+    return;
+  }
+  closeRequestDetails();
+  approveRequest(id, input.value);
 }
 
 async function rejectRequest(id){

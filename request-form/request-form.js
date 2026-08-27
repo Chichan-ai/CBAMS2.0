@@ -514,6 +514,10 @@ function openRequestDetails(id, mode){
       <div class="value">${r.reviewedAt || '—'}</div>
     </div>
     <div class="request-detail-item full">
+      <div class="label">Approval Remarks</div>
+      <div class="value reason">${r.reviewRemarks || '—'}</div>
+    </div>
+    <div class="request-detail-item full">
       <div class="label">Details / Reason</div>
       <div class="value reason">${r.reason || '—'}</div>
     </div>`;
@@ -521,9 +525,15 @@ function openRequestDetails(id, mode){
   const showActions = mode === 'approval' && r.status === 'pending' && can('can_approve');
   if(showActions){
     foot.innerHTML = `
-      <button type="button" class="btn btn-ghost" id="requestDetailCloseBtn">Close</button>
-      <button type="button" class="btn btn-danger btn-sm" onclick="rejectRequest('${r.id}');closeRequestDetails();">Reject</button>
-      <button type="button" class="btn btn-approve btn-sm" onclick="approveRequest('${r.id}');closeRequestDetails();">Approve</button>`;
+      <div class="approval-remarks">
+        <label for="approvalRemarks">Remarks <span aria-hidden="true">*</span></label>
+        <textarea id="approvalRemarks" rows="2" maxlength="500" required placeholder="Enter remarks before approving"></textarea>
+      </div>
+      <div class="request-detail-actions">
+        <button type="button" class="btn btn-ghost" id="requestDetailCloseBtn">Close</button>
+        <button type="button" class="btn btn-danger btn-sm" onclick="rejectRequest('${r.id}');closeRequestDetails();">Reject</button>
+        <button type="button" class="btn btn-approve btn-sm" onclick="submitApproval('${r.id}')">Approve</button>
+      </div>`;
   } else {
     foot.innerHTML = `<button type="button" class="btn btn-ghost" id="requestDetailCloseBtn">Close</button>`;
   }

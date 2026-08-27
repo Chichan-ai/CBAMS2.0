@@ -109,7 +109,7 @@ async function loadRequests(){
     closedFrom:r.closed_from, closedUntil:r.closed_until, closedFromTime:r.closed_from_time, closedUntilTime:r.closed_until_time,
     submittedBy:r.submitter?.full_name, submittedByPosition:r.submitter?.role_label, submittedById:r.submitted_by,
     submittedAt:timeAgo(r.submitted_at), submittedAtDate:new Date(r.submitted_at),
-    status:r.status, reviewedBy:r.reviewer?.full_name, reviewedAt:r.reviewed_at ? timeAgo(r.reviewed_at) : null
+    status:r.status, reviewRemarks:r.review_remarks, reviewedBy:r.reviewer?.full_name, reviewedAt:r.reviewed_at ? timeAgo(r.reviewed_at) : null
   }));
 }
 
