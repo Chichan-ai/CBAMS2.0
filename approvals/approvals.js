@@ -11,8 +11,6 @@ async function approveRequest(id, remarks){
   const b = branches.find(x=>x.code===req.branchCode);
   if(!b){ showToast('Branch not found.', 'error'); return; }
   if(!can('can_approve')){ showToast('You do not have approval access.', 'error'); return; }
-  if(!remarks || !remarks.trim()){ showToast('Remarks are required before approving the request.', 'error'); return; }
-
   const reviewer = currentUser.full_name;
   let historyTitle, historyDesc, branchUpdate;
   if(req.requestedStatus==='closed'){
@@ -44,7 +42,7 @@ async function approveRequest(id, remarks){
     actor: `${reviewer} (Approved ${req.id})`
   });
   const { error: rErr } = await sb.from('closure_requests').update({
-    status:'approved', review_remarks:remarks.trim(), reviewed_by: currentUser.id, reviewed_at: new Date().toISOString()
+    status:'approved', reviewed_by: currentUser.id, reviewed_at: new Date().toISOString()
   }).eq('id', id);
   if(rErr){ showToast('Failed to update request: ' + rErr.message, 'error'); return; }
 
@@ -57,13 +55,8 @@ async function approveRequest(id, remarks){
 
 function submitApproval(id){
   const input = document.getElementById('approvalRemarks');
-  if(!input || !input.value.trim()){
-    input?.focus();
-    showToast('Remarks are required before approving the request.', 'error');
-    return;
-  }
   closeRequestDetails();
-  approveRequest(id, input.value);
+  approveRequest(id, input?.value || '');
 }
 
 function submitRejection(id){

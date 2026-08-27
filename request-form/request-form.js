@@ -526,8 +526,8 @@ function openRequestDetails(id, mode){
   if(showActions){
     foot.innerHTML = `
       <div class="approval-remarks">
-        <label for="approvalRemarks">Remarks <span aria-hidden="true">*</span></label>
-        <textarea id="approvalRemarks" rows="2" maxlength="500" required placeholder="Enter remarks before approving"></textarea>
+        <label for="approvalRemarks">Remarks <span class="required-mark" aria-hidden="true">*</span> <span class="remarks-note">required for rejection</span></label>
+        <textarea id="approvalRemarks" rows="2" maxlength="500" placeholder="Enter remarks when rejecting"></textarea>
       </div>
       <div class="request-detail-actions">
         <button type="button" class="btn btn-ghost" id="requestDetailCloseBtn">Close</button>

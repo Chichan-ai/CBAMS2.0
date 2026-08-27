@@ -74,7 +74,8 @@
   }
   .approval-remarks{flex:1;min-width:220px;margin-right:auto;}
   .approval-remarks label{display:block;font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
-  .approval-remarks label span{color:var(--closed);}
+  .approval-remarks label .required-mark{color:var(--closed);}
+  .approval-remarks label .remarks-note{color:var(--muted);font-weight:500;text-transform:none;letter-spacing:0;}
   .approval-remarks textarea{display:block;width:100%;min-height:52px;resize:vertical;}
   .request-detail-actions{display:flex;gap:8px;align-items:center;flex-shrink:0;}
   .request-detail-actions .btn{min-width:78px;min-height:34px;}
