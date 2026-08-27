@@ -396,6 +396,7 @@ function requestTableRowHTML(r, mode){
     </td>
     <td class="submitted-cell">${r.submittedAt || '—'}</td>
     <td>${requestStatusPill(r)}</td>
+    <td>${r.reviewedBy || '—'}</td>
   </tr>`;
 }
 
