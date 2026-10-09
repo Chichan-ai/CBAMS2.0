@@ -46,8 +46,8 @@ function renderDirectoryList(filterText){
         </div>
         <div class="directory-group-body">
           ${items.map(b=>`
-            <div class="region-branch-item ${b.code===directorySelectedCode?'selected':''}" data-code="${b.code}">
-              <div><div class="rb-name">${b.name}</div><div class="rb-code">${b.code}</div></div>
+            <div class="region-branch-item ${b.code===directorySelectedCode?'selected':''}" data-code="${escapeHTML(b.code)}">
+              <div><div class="rb-name">${escapeHTML(b.name)}</div><div class="rb-code">${escapeHTML(b.code)}</div></div>
             </div>`).join('')}
         </div>
       </div>`;
@@ -76,11 +76,11 @@ function showDirectoryDetail(b){
   });
   const detail = document.getElementById('directoryDetail');
   detail.innerHTML = `
-    <div class="dd-name">${b.name}</div>
-    <div class="dd-code">${b.code}</div>
+    <div class="dd-name">${escapeHTML(b.name)}</div>
+    <div class="dd-code">${escapeHTML(b.code)}</div>
     <div class="info-row"><span class="k">Date Opened</span><span class="v">${b.anniversary||'—'}</span></div>
     <div class="info-row"><span class="k">Region</span><span class="v">${b.region}</span></div>
-    <div class="info-row"><span class="k">Address</span><span class="v">${b.address||'—'}</span></div>
+    <div class="info-row"><span class="k">Address</span><span class="v">${escapeHTML(b.address||'—')}</span></div>
     <div class="info-row"><span class="k">Coordinates</span><span class="v">${b.lat.toFixed(3)}, ${b.lng.toFixed(3)}</span></div>
   `;
 }
@@ -99,7 +99,7 @@ function populateAddBranchRegions(){
   const sel = document.getElementById('abRegion');
   const current = sel.value;
   const regions = getKnownRegions();
-  sel.innerHTML = regions.map(r=>`<option value="${r}">${r}</option>`).join('')
+  sel.innerHTML = regions.map(r=>`<option value="${escapeHTML(r)}">${escapeHTML(r)}</option>`).join('')
     + `<option value="__add__">+ Add new region…</option>`;
   if(current && regions.includes(current)) sel.value = current;
 }
@@ -229,7 +229,7 @@ function openDrawer(b){
   (b.history||[]).forEach(([title,reason,when,by])=>{
     const item = document.createElement('div');
     item.className='hist-item';
-    item.innerHTML = `<div class="h-title">${title}</div><div class="h-meta">${reason} — ${when} · ${by}</div>`;
+    item.innerHTML = `<div class="h-title">${escapeHTML(title)}</div><div class="h-meta">${escapeHTML(reason)} — ${escapeHTML(when)} · ${escapeHTML(by)}</div>`;
     hist.appendChild(item);
   });
 
@@ -254,8 +254,8 @@ function openRegionDrawer(regionName){
   document.getElementById('pane-region').innerHTML =
     `<div class="region-drawer-hint">Click a branch to view its full details.</div>` +
     regionBranches.sort((a,b)=>a.name.localeCompare(b.name)).map(b=>
-      `<div class="region-branch-item" data-code="${b.code}">
-        <div><div class="rb-name">${b.name}</div><div class="rb-code">${b.code}</div></div>
+      `<div class="region-branch-item" data-code="${escapeHTML(b.code)}">
+        <div><div class="rb-name">${escapeHTML(b.name)}</div><div class="rb-code">${escapeHTML(b.code)}</div></div>
         <span class="rb-status ${b.status}">${b.status==='open'?'Open':'Closed'}</span>
       </div>`
     ).join('');

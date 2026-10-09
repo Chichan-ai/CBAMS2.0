@@ -39,11 +39,36 @@ function renderBranchAnniversaries(){
     return `<div class="advisory-item">
       <div class="dot ${dotClass}">${dotChar}</div>
       <div>
-        <b>${it.branch.name} — ${ord(it.years)} Anniversary</b>
+        <b>${escapeHTML(it.branch.name)} — ${ord(it.years)} Anniversary</b>
         <span>${dateLabel} (${whenLabel}) &middot; ${it.branch.region}</span>
       </div>
     </div>`;
   }).join('');
 }
 renderBranchAnniversaries();
+
+/* =========================================================
+   Login page controls (password toggle + announcement slider)
+   — moved here from header.js, where they did not belong
+   ========================================================= */
+const loginToggleBtn = document.getElementById('toggleVis');
+const loginPwdInput = document.getElementById('loginPassword');
+loginToggleBtn.addEventListener('click', ()=>{
+  const show = loginPwdInput.type === 'password';
+  loginPwdInput.type = show ? 'text' : 'password';
+  loginToggleBtn.textContent = show ? 'Hide Password' : 'Show Password';
+});
+
+// auto-sliding announcement panel
+const loginMediaTrack = document.getElementById('mediaTrack');
+const loginMediaSlides = loginMediaTrack.querySelectorAll('.media-slide');
+const loginMediaDots = document.querySelectorAll('#mediaDots span');
+const loginSlideCount = loginMediaSlides.length;
+let loginSlideCurrent = 0;
+function goToSlide(i){
+  loginSlideCurrent = i;
+  loginMediaSlides.forEach((s, idx) => s.classList.toggle('active', idx === loginSlideCurrent));
+  loginMediaDots.forEach((d, idx) => d.classList.toggle('active', idx === loginSlideCurrent));
+}
+setInterval(() => goToSlide((loginSlideCurrent + 1) % loginSlideCount), 4500);
 

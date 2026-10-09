@@ -182,7 +182,7 @@ function renderHolidaysList(){
   tbody.innerHTML = filtered.map(h=>
     `<tr>
       <td class="ht-date">${fmtDate(h.date)}</td>
-      <td class="ht-name">${h.name}</td>
+      <td class="ht-name">${escapeHTML(h.name)}</td>
       <td class="ht-type"><span class="hi-type ${h.type}">${HOLIDAY_TYPE_LABELS[h.type]||h.type}</span></td>
       <td class="ht-ref">${h.ref}</td>
       <td class="ht-scope">${getHolidayScope(h)}</td>
@@ -213,7 +213,7 @@ document.querySelectorAll('#holidayFilterRow .filter-chip').forEach(chip=>{
    ========================================================= */
 function populateAddHolidayBranches(){
   const sel = document.getElementById('ahBranches');
-  sel.innerHTML = branches.map(b=>`<option value="${b.code}">${b.name} (${b.code})</option>`).join('');
+  sel.innerHTML = branches.map(b=>`<option value="${escapeHTML(b.code)}">${escapeHTML(b.name)} (${escapeHTML(b.code)})</option>`).join('');
 }
 document.getElementById('ahScope').addEventListener('change', function(){
   document.getElementById('ahBranchesGroup').style.display = this.value === 'local' ? 'block' : 'none';

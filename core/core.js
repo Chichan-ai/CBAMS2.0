@@ -6,6 +6,9 @@
    SUPABASE CONFIG — fill these in from
    Project Settings > API in your Supabase dashboard.
    ========================================================= */
+/* Escapes user-entered text before it is placed into innerHTML (prevents script injection). */
+function escapeHTML(v){return String(v==null?'':v).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+
 const SUPABASE_URL = 'https://naxzbvesadkhkhocgogf.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5heHpidmVzYWRraGtob2Nnb2dmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1MTA2NjksImV4cCI6MjEwMjA4NjY2OX0._S8kpfDbhqAl0cvcz1n4MPXPRloV06Phv2N3uGcpVto';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -379,7 +382,7 @@ function showToast(msg, type){
   const stack = document.getElementById('toastStack');
   const t = document.createElement('div');
   t.className = 'toast '+type;
-  t.innerHTML = `<span class="tdot"></span><span>${msg}</span>`;
+  t.innerHTML = `<span class="tdot"></span><span>${escapeHTML(msg)}</span>`;
   stack.appendChild(t);
   setTimeout(()=>{
     t.style.transition='opacity .25s, transform .25s';
@@ -499,7 +502,7 @@ function renderPins(){
     core.setAttribute('fill', st==='open' ? '#16a34a' : '#dc2626');
     g.appendChild(core);
     g.addEventListener('mouseenter',()=>{
-      tooltip.innerHTML = `<span class="t-name">${b.name}</span><span class="t-status ${st}">● ${st.toUpperCase()}</span>`;
+      tooltip.innerHTML = `<span class="t-name">${escapeHTML(b.name)}</span><span class="t-status ${st}">● ${st.toUpperCase()}</span>`;
       tooltip.style.left = x+'px';
       tooltip.style.top = y+'px';
       tooltip.classList.add('show');
@@ -539,7 +542,7 @@ function renderAlertFeed(){
       const item = document.createElement('div');
       item.className='alert-item';
       const cat = b.history[0] ? b.history[0][0].replace('Closed — ','') : (b.category||'Closed');
-      item.innerHTML = `<div class="a-top"><span>${b.name}</span><span class="tag">${cat}</span></div>
+      item.innerHTML = `<div class="a-top"><span>${escapeHTML(b.name)}</span><span class="tag">${escapeHTML(cat)}</span></div>
         <div class="a-meta">${b.region} · since ${b.history[0] ? b.history[0][2].toLowerCase() : ''}</div>`;
       item.addEventListener('click',()=>openDrawer(b));
       alertFeed.appendChild(item);

@@ -9,7 +9,7 @@ function renderSmsRecipientTags(){
   const input = document.getElementById('smsRecipients').value;
   const tags = document.getElementById('smsRecipientTags');
   const numbers = input.split(',').map(s=>s.trim()).filter(Boolean);
-  tags.innerHTML = numbers.map(n=>`<span class="sms-rcpt-tag">${n}</span>`).join('');
+  tags.innerHTML = numbers.map(n=>`<span class="sms-rcpt-tag">${escapeHTML(n)}</span>`).join('');
 }
 
 function buildSmsMessage(){

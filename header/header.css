@@ -1,74 +1,64 @@
 /* ===========================================================
    Header & Navigation — styles
+   Two-row bar: brand + account on top, navigation below.
    =========================================================== */
 
-  /* ===== Header ===== */
-  header.topbar{
-    background:var(--header);color:#fff;
-    display:flex;align-items:center;height:100px;padding:0 22px;
-    position:relative;z-index:20;
-  }
-  .brand{display:flex;align-items:center;gap:10px;margin-right:20px;}
+  header.topbar{background:#43434f;color:#fff;position:relative;z-index:20;font-family:'Poppins','Inter',sans-serif;}
+  .tb-box{max-width:1605px;margin:0 auto;padding:0 15px;background:var(--header);border:solid rgba(255,255,255,.12);border-width:0 1px 1px 1px;}
+  .tb-top{height:63px;display:flex;align-items:center;gap:10px;}
+  .brand{display:flex;align-items:center;gap:8px;}
   .brand-home{cursor:pointer;}
-  .brand-stack{display:flex;flex-direction:column;justify-content:center;gap:6px;}
-  .brand-title{font-size:12.5px;font-weight:800;letter-spacing:.12em;color:rgba(255,255,255,.85);white-space:nowrap;padding-left:10px;}
+  header.topbar .brand-logo{max-height:46px;width:auto;object-fit:contain;display:block;}
+  .brand-title{font-size:11px;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,.9);white-space:nowrap;}
+  .spacer{flex:1;}
 
-  header.topbar .brand-logo {
-    max-height: 70px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-  }
-
-  .brand-mark{width:28px;height:28px;border-radius:50%;background:#e9dc4f;
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .brand-mark svg{width:15px;height:15px;}
-  .brand-name{font-size:15px;font-weight:700;letter-spacing:.01em;}
-
-  .navrow {
-    display: flex;
-    align-items: center;
-    gap: 26px;
-    height: 100%;
-    transform: translateY(25px); /* Shifts nav links slightly lower */
-  }
-
-  .navitem {
-    transform: translateY(3px); /* Adjust pixel value as needed */
-  }
+  /* ---- navigation row ---- */
+  .navrow{display:flex;align-items:stretch;gap:4px;height:48px;border-top:1px solid rgba(255,255,255,.12);}
+  .navitem{display:flex;align-items:center;gap:5px;padding:0 10px;font-size:13px;font-weight:600;color:rgba(255,255,255,.85);cursor:pointer;user-select:none;transition:background .15s,color .15s;}
   .navitem-positioned{position:relative;}
-  #nav-records,#nav-forms{position:relative;transform:translateY(3px);}
-  .navitem:hover,.navitem.open{color:#fff;}
+  .navitem:hover,.navitem.open{color:#fff;background:rgba(255,255,255,.07);}
+  .navitem .nv{flex:none;opacity:.9;}
   .navitem .chev{font-size:8px;opacity:.8;transition:transform .15s;}
   .navitem.open .chev{transform:rotate(180deg);}
+  .navitem.current{color:#fff;}
+  .navitem.current::after{content:'';position:absolute;left:10px;right:10px;bottom:-1px;height:2px;background:#e9dc4f;border-radius:2px 2px 0 0;}
+  .navitem.disabled{opacity:.4;cursor:not-allowed;}
+  .navitem.disabled:hover{background:none;}
 
   .dropdown{
-    position:absolute;top:56px;left:0;background:#fff;color:var(--ink);
+    position:absolute;top:100%;left:0;background:#fff;color:var(--ink);
     border-radius:8px;box-shadow:0 10px 24px rgba(0,0,0,.14);
     min-width:190px;padding:6px;display:none;flex-direction:column;
-    border:1px solid var(--border);
+    border:1px solid var(--border);z-index:30;font-weight:500;
   }
   .dropdown.show{display:flex;}
-  .dropdown a{padding:8px 11px;border-radius:6px;font-size:12.5px;font-weight:500;color:var(--ink);}
+  .dropdown a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 11px;border-radius:6px;font-size:12.5px;font-weight:500;color:var(--ink);}
   .dropdown a:hover{background:var(--bg);}
+  .dropdown a .lock{font-size:10px;color:var(--muted);}
+  .dropdown a.locked{color:var(--muted);cursor:not-allowed;}
+  .dropdown a.locked:hover{background:none;}
   .is-hidden{display:none;}
 
-  .spacer{flex:1;}
-  .account{display:flex;align-items:center;gap:8px;cursor:pointer;position:relative;}
-  .avatar{width:28px;height:28px;border-radius:50%;background:#565a6b;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;}
+  /* ---- account menu ---- */
+  .account{position:relative;cursor:pointer;}
+  .acc-btn{display:flex;color:#fff;border-radius:50%;}
+  .acc-btn:hover{opacity:.85;}
   .account-dropdown{
-    position:absolute;top:44px;right:0;background:#fff;color:var(--ink);
-    border-radius:8px;box-shadow:0 10px 24px rgba(0,0,0,.14);
-    min-width:170px;padding:6px;display:none;flex-direction:column;
-    border:1px solid var(--border);
+    position:absolute;top:calc(100% + 10px);right:0;background:#fff;color:var(--ink);
+    border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);
+    min-width:250px;padding:8px 0;display:none;flex-direction:column;z-index:300;
   }
   .account-dropdown.show{display:flex;}
-  .account-dropdown .who{padding:9px 11px 8px;border-bottom:1px solid var(--border);margin-bottom:4px;}
-  .account-dropdown .who .n{font-weight:600;font-size:12.5px;}
+  .account-dropdown .who{display:flex;align-items:center;gap:12px;padding:12px 16px 14px;cursor:default;}
+  .account-dropdown .who .n{font-weight:600;font-size:13px;color:#1b3a3a;}
   .account-dropdown .who .r{font-size:10.5px;color:var(--muted);}
-  .account-dropdown a{padding:8px 11px;border-radius:6px;font-size:12.5px;font-weight:500;}
+  .avatar{width:32px;height:32px;border-radius:50%;background:#e9ecef;color:#4b5563;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex:none;}
+  .account-dropdown a{display:flex;align-items:center;gap:10px;padding:8px 16px;font-size:13px;font-weight:500;color:#4b5563;}
+  .account-dropdown a svg{color:var(--forest);flex:none;}
   .account-dropdown a:hover{background:var(--bg);}
-  .account-dropdown a.danger{color:var(--closed);}
+  .account-dropdown a#logoutLink{color:#6b7280;}
+
+  .pw-err{color:var(--closed);font-size:12px;min-height:16px;}
 
   .profile-modal-body{grid-template-columns:1fr;gap:10px;}
   .profile-value{font-size:13px;color:var(--ink);}

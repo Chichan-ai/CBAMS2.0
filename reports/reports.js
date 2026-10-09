@@ -9,7 +9,7 @@ function populateReportCategoryFilter(){
   const sel = document.getElementById('reportCategory');
   const current = sel.value;
   const cats = Object.keys(CLOSURE_CATEGORIES);
-  sel.innerHTML = '<option value="all">All categories</option>' + cats.map(c=>`<option value="${c}">${c}</option>`).join('');
+  sel.innerHTML = '<option value="all">All categories</option>' + cats.map(c=>`<option value="${escapeHTML(c)}">${escapeHTML(c)}</option>`).join('');
   if(current && (current==='all' || cats.includes(current))) sel.value = current;
 }
 
@@ -41,14 +41,14 @@ function renderReportTable(){
       const statusLabel = r.status.charAt(0).toUpperCase()+r.status.slice(1);
       return `<tr>
         <td>${r.id}</td>
-        <td>${r.branchName} <span style="color:var(--muted);">(${r.branchCode})</span></td>
-        <td>${r.region}</td>
-        <td>${r.category||'—'}</td>
-        <td>${r.subcategory||'—'}</td>
+        <td>${escapeHTML(r.branchName)} <span style="color:var(--muted);">(${escapeHTML(r.branchCode)})</span></td>
+        <td>${escapeHTML(r.region)}</td>
+        <td>${escapeHTML(r.category||'—')}</td>
+        <td>${escapeHTML(r.subcategory||'—')}</td>
         <td>${change}</td>
         <td>${statusLabel}</td>
-        <td>${r.submittedBy}${r.submittedByPosition?` (${r.submittedByPosition})`:''}, ${r.submittedAt}</td>
-        <td>${r.reviewedBy ? r.reviewedBy+', '+r.reviewedAt : '—'}</td>
+        <td>${escapeHTML(r.submittedBy)}${r.submittedByPosition?` (${escapeHTML(r.submittedByPosition)})`:''}, ${r.submittedAt}</td>
+        <td>${r.reviewedBy ? escapeHTML(r.reviewedBy+', '+r.reviewedAt) : '—'}</td>
       </tr>`;
     }).join('');
   }
