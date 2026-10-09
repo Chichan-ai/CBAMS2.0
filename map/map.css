@@ -66,12 +66,14 @@
 
 
   .map-scroll{
-    height:700px;overflow:auto;border:1px solid var(--border);border-radius:var(--radius);
+    height:700px;overflow:auto;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:transparent transparent;border:1px solid var(--border);border-radius:var(--radius);
     background:#f4f7f5;position:relative;
   }
+  .map-scroll.is-scrolling{scrollbar-color:#9ca3af transparent;}
   .map-scroll.dragging{cursor:grabbing;}
   .map-scroll::-webkit-scrollbar{width:9px;height:9px;}
-  .map-scroll::-webkit-scrollbar-thumb{background:#d3d7dc;border-radius:0px;}
+  .map-scroll::-webkit-scrollbar-thumb{background:transparent;border-radius:4px;transition:background-color .2s ease;}
+  .map-scroll.is-scrolling::-webkit-scrollbar-thumb{background:#9ca3af;}
   .map-scroll::-webkit-scrollbar-track{background:transparent;}
 
   .map-inner{position:relative;width:640px;padding:14px 0;margin:0 auto;cursor:grab;}

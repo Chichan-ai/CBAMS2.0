@@ -3,18 +3,18 @@
    Two-row bar: brand + account on top, navigation below.
    =========================================================== */
 
-  header.topbar{background:#43434f;color:#fff;position:relative;z-index:20;font-family:'Poppins','Inter',sans-serif;}
+  header.topbar{background:#43434f;color:#fff;position:relative;z-index:20;font-family:var(--f);}
   .tb-box{max-width:1605px;margin:0 auto;padding:0 15px;background:var(--header);border:solid rgba(255,255,255,.12);border-width:0 1px 1px 1px;}
-  .tb-top{height:63px;display:flex;align-items:center;gap:10px;}
+  .tb-top{height:80px;display:flex;align-items:center;gap:10px;}
   .brand{display:flex;align-items:center;gap:8px;}
   .brand-home{cursor:pointer;}
-  header.topbar .brand-logo{max-height:46px;width:auto;object-fit:contain;display:block;}
-  .brand-title{font-size:11px;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,.9);white-space:nowrap;}
+  header.topbar .brand-logo{max-height:68px;width:auto;object-fit:contain;display:block;}
+  .brand-title{font-size:16px;font-weight:400;letter-spacing:.05em;color:rgba(255,255,255,.9);white-space:nowrap;}
   .spacer{flex:1;}
 
   /* ---- navigation row ---- */
   .navrow{display:flex;align-items:stretch;gap:4px;height:48px;border-top:1px solid rgba(255,255,255,.12);}
-  .navitem{display:flex;align-items:center;gap:5px;padding:0 10px;font-size:13px;font-weight:600;color:rgba(255,255,255,.85);cursor:pointer;user-select:none;transition:background .15s,color .15s;}
+  .navitem{display:flex;align-items:center;gap:5px;padding:0 10px;font-size:14px;font-weight:400;color:rgba(255,255,255,.85);cursor:pointer;user-select:none;transition:background .15s,color .15s;}
   .navitem-positioned{position:relative;}
   .navitem:hover,.navitem.open{color:#fff;background:rgba(255,255,255,.07);}
   .navitem .nv{flex:none;opacity:.9;}
@@ -64,6 +64,23 @@
   .profile-value{font-size:13px;color:var(--ink);}
   .profile-name{font-size:13.5px;font-weight:600;}
   .profile-permissions{font-size:12px;color:var(--muted);line-height:1.7;}
+
+  .site-footer{
+    width:calc(100% - 52px);max-width:1648px;margin:0 auto;background:#fff;border-radius:4px 4px 0 0;box-shadow:0 -4px 18px rgba(31,41,55,.06);
+  }
+  .site-footer-inner{
+    padding:26px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+  }
+  .portal-name{
+    font-size:13px;font-weight:500;color:#1f2937;text-transform:uppercase;
+  }
+  .portal-brand{
+    min-width:0;font-size:13px;font-weight:500;color:#1f2937;text-transform:uppercase;text-align:right;
+  }
+
+  @media (max-width:600px){
+    .site-footer-inner{padding:20px 16px;}
+  }
 
 
   /* ===== Header polish ===== */

@@ -13,13 +13,13 @@
     --open:#2e8b3f;
     --closed:#c0392b;
     --alert:#e0a800;
-    --f:'Inter', sans-serif;
+    --f:'Poppins', sans-serif;
 
   }
 
 
   *{box-sizing:border-box;margin:0;padding:0;font-family:var(--f);}
-  body{background:var(--bg);color:var(--ink);font-size:13.5px;}
+  body{background:var(--bg);color:var(--ink);font-size:14px;}
   a{text-decoration:none;color:inherit;}
 
 
@@ -66,7 +66,11 @@
   /* ===== Page header / subtitle ===== */
   .page-head{margin-bottom:18px;}
   .page-title{margin-bottom:3px;}
-  .page-sub{font-size:12px;color:var(--muted);}
+  .page-sub{font-size:16px;color:var(--muted);}
+  #portal h2,#portal h3,#portal h4{font-size:16px;}
+  #portal p{font-size:14px;}
+  #portal .request-module-title{font-size:16px;}
+  #portal .request-module-sub{font-size:14px;}
 
 
   /* ===== Buttons ===== */

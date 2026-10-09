@@ -167,7 +167,7 @@ async function doLogin(email,password){
     await loadCurrentUserProfile(data.user.id);
     if(!currentUser){await sb.auth.signOut();fail('Login succeeded, but no user profile was found. Please contact the administrator.');return;}
     if(currentUser.permissions?.can_login!==true){await sb.auth.signOut();currentUser=null;fail('This account is not permitted to sign in. Please ask an administrator to enable Login access.');return;}
-    document.getElementById('login-page').style.display='none';document.getElementById('portal').style.display='block';document.body.classList.remove('login-active');
+    document.getElementById('login-page').style.display='none';document.getElementById('portal').style.display='flex';document.body.classList.remove('login-active');
     applyRole(currentUser.role);await switchView(defaultViewForRole());await refreshFromSupabase();showToast(`Signed in as ${currentUser.full_name||data.user.email}.`,'success');startIdleTimer();
   }catch(err){console.error('Login error:',err);fail(err?.message||'Unable to sign in. Please try again.');}
   finally{if(btn){btn.disabled=false;btn.textContent='Log in';}}
@@ -281,7 +281,7 @@ async function bootstrapSession(){
     await loadCurrentUserProfile(session.user.id);
     if(currentUser && currentUser.permissions?.can_login === true){
       document.getElementById('login-page').style.display = 'none';
-      document.getElementById('portal').style.display = 'block';
+      document.getElementById('portal').style.display = 'flex';
       document.body.classList.remove('login-active');
       applyRole(currentUser.role);
       await switchView(defaultViewForRole());

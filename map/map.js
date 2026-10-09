@@ -41,6 +41,16 @@ svg.appendChild(pinsLayer);
 const mapScroll = document.getElementById('mapScroll');
 const mapInner = document.getElementById('mapInner');
 const zoomLevelEl = document.getElementById('zoomLevel');
+function revealScrollbarWhileScrolling(element){
+  let hideTimer;
+  element.addEventListener('scroll',()=>{
+    element.classList.add('is-scrolling');
+    clearTimeout(hideTimer);
+    hideTimer=setTimeout(()=>element.classList.remove('is-scrolling'),800);
+  },{passive:true});
+}
+revealScrollbarWhileScrolling(mapScroll);
+revealScrollbarWhileScrolling(document.getElementById('alertFeed'));
 const BASE_W = 640;
 let zoom = 1;
 function setZoom(z, clientX, clientY){
