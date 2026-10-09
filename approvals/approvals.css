@@ -29,8 +29,8 @@
   .request-admin-table .details-main{font-weight:600;}
   .request-admin-table .details-sub{font-size:10.5px;color:var(--muted);margin-top:2px;}
   .request-admin-table .row-actions{display:flex;gap:6px;align-items:center;}
-  .btn-view{background:#fff;color:var(--ink);border:1px solid var(--border);}
-  .btn-view:hover{background:var(--bg);border-color:#cbd0d8;}
+  .btn-view{background:var(--forest);color:#fff;border:1px solid var(--forest);border-radius:0;}
+  .btn-view:hover{background:#257236;border-color:#257236;border-radius:0;}
   .request-admin-empty{display:none;padding:38px 18px;text-align:center;color:var(--muted);font-size:11.5px;}
 
   /* Request details modal */

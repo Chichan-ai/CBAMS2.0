@@ -72,7 +72,7 @@
   /* ===== Buttons ===== */
   .btn{
     display:inline-flex;align-items:center;justify-content:center;gap:6px;
-    font-family:var(--f);font-size:12px;font-weight:600;padding:9px 16px;border-radius:8px;
+    font-family:var(--f);font-size:12px;font-weight:600;padding:9px 16px;border-radius:0;
     border:1px solid transparent;cursor:pointer;transition:all .15s;line-height:1;
   }
   .btn-primary{background:var(--forest);color:#fff;}
@@ -83,7 +83,7 @@
   .btn-danger:hover{background:#fef2f2;}
   .btn-approve{background:var(--open);color:#fff;}
   .btn-approve:hover{background:#128a3e;}
-  .btn-sm{padding:6px 12px;font-size:11.5px;border-radius:7px;}
+  .btn-sm{padding:6px 12px;font-size:11.5px;border-radius:0;}
   .btn:disabled{opacity:.5;cursor:not-allowed;}
   .btn-block{width:100%;}
 
